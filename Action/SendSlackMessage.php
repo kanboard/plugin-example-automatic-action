@@ -6,7 +6,7 @@ use Model\Task;
 use Action\Base;
 
 /**
- * Send a Slack message when moving a task to another column
+ * Send a Slack message when changing the task color
  *
  * @package action
  * @author  Frederic Guillot
