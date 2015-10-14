@@ -1,9 +1,9 @@
 <?php
 
-namespace Plugin\AutomaticAction\Action;
+namespace Kanboard\Plugin\AutomaticAction\Action;
 
-use Model\Task;
-use Action\Base;
+use Kanboard\Model\Task;
+use Kanboard\Action\Base;
 
 /**
  * Send a Slack message when changing the task color
