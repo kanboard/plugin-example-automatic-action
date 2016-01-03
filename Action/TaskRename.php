@@ -11,8 +11,19 @@ use Kanboard\Action\Base;
  * @package action
  * @author  Frederic Guillot
  */
-class SendSlackMessage extends Base
+class TaskRename extends Base
 {
+    /**
+     * Get automatic action description
+     *
+     * @access public
+     * @return string
+     */
+    public function getDescription()
+    {
+        return t('Change the task title when the task is moved to another column');
+    }
+
     /**
      * Get the list of compatible events
      *
@@ -22,7 +33,7 @@ class SendSlackMessage extends Base
     public function getCompatibleEvents()
     {
         return array(
-            Task::EVENT_UPDATE,
+            Task::EVENT_MOVE_COLUMN,
         );
     }
 
@@ -35,8 +46,7 @@ class SendSlackMessage extends Base
     public function getActionRequiredParameters()
     {
         return array(
-            'color_id' => t('Color'),
-            'message' => t('Message'),
+            'title' => t('Title'),
         );
     }
 
@@ -50,7 +60,6 @@ class SendSlackMessage extends Base
     {
         return array(
             'task_id',
-            'color_id',
         );
     }
 
@@ -63,12 +72,7 @@ class SendSlackMessage extends Base
      */
     public function doAction(array $data)
     {
-        if ($this->slackWebhook->isActivated($this->getProjectId())) {
-            $this->slackWebhook->sendMessage($this->getProjectId(), $this->getParam('message'));
-            return true;
-        }
-
-        return false;
+        return $this->taskModification->update(array('id' => $data['task_id'], 'title' => $this->getParam('title')));
     }
 
     /**
@@ -80,6 +84,6 @@ class SendSlackMessage extends Base
      */
     public function hasRequiredCondition(array $data)
     {
-        return $data['color_id'] == $this->getParam('color_id');
+        return true;
     }
 }
