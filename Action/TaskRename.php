@@ -6,7 +6,7 @@ use Kanboard\Model\Task;
 use Kanboard\Action\Base;
 
 /**
- * Send a Slack message when changing the task color
+ * Rename Task Title
  *
  * @package action
  * @author  Frederic Guillot
