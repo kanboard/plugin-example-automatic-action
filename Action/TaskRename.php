@@ -2,7 +2,7 @@
 
 namespace Kanboard\Plugin\AutomaticAction\Action;
 
-use Kanboard\Model\Task;
+use Kanboard\Model\TaskModel;
 use Kanboard\Action\Base;
 
 /**
@@ -33,7 +33,7 @@ class TaskRename extends Base
     public function getCompatibleEvents()
     {
         return array(
-            Task::EVENT_MOVE_COLUMN,
+            TaskModel::EVENT_MOVE_COLUMN,
         );
     }
 
@@ -72,7 +72,7 @@ class TaskRename extends Base
      */
     public function doAction(array $data)
     {
-        return $this->taskModification->update(array('id' => $data['task_id'], 'title' => $this->getParam('title')));
+        return $this->taskModificationModel->update(array('id' => $data['task_id'], 'title' => $this->getParam('title')));
     }
 
     /**
